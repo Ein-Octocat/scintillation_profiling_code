@@ -1,12 +1,10 @@
-
-    
 def gen_turb_conditions_func(Cn2, k, Dz, nscr):
     
     import numpy as np
     from scipy.optimize import least_squares
     
     #SW and PW coherence diameters [m]
-    r0sw = (0.423 * k**2 * Cn2 * 3.0/8 * Dz)**(-3.0/5)
+    r0sw = (0.423 * k**2 * Cn2 * 3.0/8 * Dz)**(-3.0/5)    
     r0pw = (0.423 * k**2 * Cn2 * Dz)**(-3.0/5)
     p = np.linspace(0, Dz, 1000)
     
@@ -22,7 +20,7 @@ def gen_turb_conditions_func(Cn2, k, Dz, nscr):
     B = np.asarray([r0sw**(-5.0/3), rytov/1.33 * (k/Dz)**(5.0/6)])  
     
     #initial guess
-    x0 = (nscr/3*r0sw * np.ones(nscr))**(-5.0/6)    
+    x0 = (nscr/3*r0sw * np.ones(nscr))**(-5.0/3)    
     
     #objective function
 
@@ -34,4 +32,4 @@ def gen_turb_conditions_func(Cn2, k, Dz, nscr):
     
     x = res.x
     
-    return x
+    return x,A,B,r0sw,r0pw,rytov
