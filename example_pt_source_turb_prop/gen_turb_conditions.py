@@ -20,7 +20,7 @@ def gen_turb_conditions_func(Cn2, k, Dz, nscr):
     B = np.asarray([r0sw**(-5.0/3), rytov/1.33 * (k/Dz)**(5.0/6)])  
     
     #initial guess
-    x0 = 0.001*(nscr/3*r0sw * np.ones(nscr))**(-5.0/3)    
+    x0 = (nscr/3*r0sw * np.ones(nscr))**(-5.0/3)    
     
     #objective function
 
@@ -31,5 +31,6 @@ def gen_turb_conditions_func(Cn2, k, Dz, nscr):
     res = least_squares(fun, x0, args =(A,B), bounds = (0,np.inf))  
     
     x = res.x
+    r0scrn = x**(-3.0/5)
     
-    return x, A, B, r0sw, r0pw, rytov
+    return r0scrn, A, B, r0sw, r0pw, rytov
